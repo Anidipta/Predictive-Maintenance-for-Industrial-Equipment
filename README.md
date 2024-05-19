@@ -69,6 +69,7 @@ Expected Outcome:
 ## **Web/App:**
 
 - Data Visualization and Monitoring Dashboard:
+  
    Develop a web or app interface that allows users to visualize sensor data, equipment health
 metrics, and maintenance predictions in real-time. This dashboard can
 provide an overview of the equipment status, historical performance trends,
