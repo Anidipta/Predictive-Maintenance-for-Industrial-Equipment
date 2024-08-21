@@ -55,3 +55,7 @@ Industrial equipment such as turbines, motors, and pumps are vital for manufactu
 - 📈 Improved equipment reliability and availability.
 - 💰 Cost reduction.
 - 🛡️ Enhanced safety and compliance.
+
+### Contributor
+
+[Anidipta Pal](https://github.com/Anidipta)
