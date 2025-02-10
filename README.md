@@ -1,4 +1,4 @@
-# Gearbox Fault Diagnosis using CNN
+# Gearbox Fault Diagnosis
 
 Diagnosing gearbox failures using sensor data collected under various loading conditions. In this project, Convolutional Neural Networks (CNNs) is implemented to classify sensor readings as coming from either healthy or faulty (broken) gears. The study evaluates several optimizers (Adam, SMORMS3, and RMSProp) and provides comprehensive reporting, including exploratory data analysis, training metrics, confusion matrices, and a SWOT analysis with a discussion on future scope.
 
@@ -6,13 +6,13 @@ Diagnosing gearbox failures using sensor data collected under various loading co
 
 ## 📌 Project Overview
 
-The goal of this project is to develop a predictive maintenance system that can identify gearbox failures—specifically, broken gear teeth—using time-series sensor data. Using multiple CSV files that record sensor readings under various loading conditions (0%–90%), we preprocessed the data, engineered features, and trained several CNN models for binary classification. Detailed evaluation metrics and visualizations are provided for each model.
+This project aims to develop a predictive maintenance system that can identify gearbox failures—specifically, broken gear teeth—using time-series sensor data. Using multiple CSV files that record sensor readings under various loading conditions (0%–90%), we preprocessed the data, engineered features, and trained several CNN models for binary classification. Detailed evaluation metrics and visualizations are provided for each model.
 
 ---
 
 ## 📁 Dataset Description
 
-The dataset is composed of sensor readings from healthy and broken gears collected under ten different loading conditions (0%, 10%, 20%, …, 90%). For each loading condition, the following steps were applied:
+The dataset comprises sensor readings from healthy and broken gears collected under ten different loading conditions (0%, 10%, 20%, …, 90%). For each loading condition, the following steps were applied:
 
 - **Healthy Gears:** Files named `h30hzX.csv` (where X represents the load percentage) contain sensor readings from gears in good condition.
 - **Broken Gears:** Files named `b30hzX.csv` contain sensor readings from gears with a broken tooth.
@@ -47,7 +47,7 @@ After labeling, the individual CSV files were concatenated into two dataframes (
    - Features were standardized using [StandardScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html).
    - The data was reshaped to add a channel dimension required for the CNN input.
 
-*Example Code Snippet:*
+*Code Snippet:*
 ```python
 X = df.drop(columns=['failure']).values
 y = df['failure'].values
@@ -66,7 +66,7 @@ X_test = X_test[..., np.newaxis]
 
 ## Exploratory Data Analysis (EDA)
 
-EDA was performed using [Seaborn](https://seaborn.pydata.org/) and [Matplotlib](https://matplotlib.org/):
+EDA was performed:
 
 - **Boxplots:** Used to detect outliers and visualize the spread of sensor values.
 - **Histograms with KDE:** Showed the distribution of each sensor reading.
@@ -76,27 +76,7 @@ EDA was performed using [Seaborn](https://seaborn.pydata.org/) and [Matplotlib](
 
 ## Model Architecture
 
-Three CNN models were developed with a similar architecture but different optimizers:
-
-### Common Architecture:
-- **Input Layer:** 1D input corresponding to sensor readings.
-- **Convolutional Layers:**
-  - First Conv1D layer: 64 filters, kernel size 2, ReLU activation.
-  - Second Conv1D layer: 128 filters, kernel size 2, ReLU activation.
-- **Batch Normalization:** Applied after each convolutional layer.
-- **MaxPooling:** Downsampling after the first convolution.
-- **Dropout Layers:** Used to prevent overfitting (dropout rates of 0.25 and 0.5).
-- **Flatten Layer:** To transition from convolutional to dense layers.
-- **Dense Layers:** 
-  - A hidden dense layer with 64 neurons (ReLU activation).
-  - Output layer with 1 neuron (sigmoid activation for binary classification).
-
-### Optimizers Evaluated:
-1. **Adam Optimizer**
-2. **SMORMS3 Optimizer** (via TensorFlow Addons)
-3. **RMSProp Optimizer**
-
-*Model Summary (Example using Adam):*
+*Model Summary (Example using SMORMS3):*
 ```
 Model: "sequential"
 _________________________________________________________________
@@ -148,7 +128,6 @@ Each model was trained for 30 epochs with a batch size of 512. Below are highlig
   - *No Failure*: Precision ~0.68, Recall ~0.45, F1-Score ~0.54
   - *Failure*: Precision ~0.59, Recall ~0.78, F1-Score ~0.67
 
-
 ---
 
 ## SWOT Analysis
@@ -165,7 +144,6 @@ Each model was trained for 30 epochs with a batch size of 512. Below are highlig
 
 ### Opportunities
 - **Enhanced Feature Extraction:** Incorporate techniques like Fourier or wavelet transforms for richer feature representation.
-- **Hyperparameter Optimization:** Employ automated methods (Grid Search, Bayesian Optimization) to fine-tune model parameters.
 - **Ensemble Methods:** Combine multiple models for improved robustness and accuracy.
 - **Real-Time Deployment:** Develop real-time fault detection systems integrated with IoT devices.
 
